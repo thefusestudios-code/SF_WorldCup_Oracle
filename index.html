@@ -1,101 +1,1540 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>The World Cup Oracle | Savvy Football</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Montserrat:wght@500;600;700;800;900&display=swap" rel="stylesheet">
-  <script src="https://unpkg.com/react@17/umd/react.production.min.js"></script>
-  <script src="https://unpkg.com/react-dom@17/umd/react-dom.production.min.js"></script>
-  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
-  <style>
-    :root{
-      --green:#7f9900; --deep-green:#527800; --bright-green:#20d33a; --red:#ef2029;
-      --white:#ffffff; --page:#ffffff; --card:#f5f2fa; --lav:#d9d0ea; --lav2:#eee9f6;
-      --blue:#5c73b8; --text:#68686d; --dark:#4e5258; --pale:#eef1df; --line:#8aa10a;
-      --display:'Bebas Neue', Impact, 'Arial Narrow', sans-serif; --body:'Montserrat', Arial, sans-serif;
-    }
-    *{box-sizing:border-box} html,body,#root{min-height:100%;} body{margin:0;background:var(--white);color:var(--text);font-family:var(--body);}
-    button,select{font-family:inherit}.app{min-height:100vh;background:#fff;display:flex;justify-content:center;align-items:flex-start;padding:0}.shell{width:100%;max-width:480px;min-height:100vh;background:var(--card);position:relative;overflow:hidden}.blob{position:absolute;background:var(--lav);opacity:.8;border-radius:48% 52% 42% 58%;pointer-events:none}.b1{width:190px;height:420px;left:-145px;top:230px;transform:rotate(-15deg)}.b2{width:190px;height:250px;right:-95px;top:82px}.b3{width:250px;height:160px;right:-30px;bottom:-80px}.screen{position:relative;z-index:1;min-height:100vh;padding:22px 22px 28px}.landing{padding:0;background:#fff;min-height:100vh}.landingWrap{position:relative;width:100%;min-height:100vh;background:#fff;display:flex;flex-direction:column;align-items:center;justify-content:flex-start;overflow:visible}.landingImg{display:block;width:100%;height:auto;object-fit:contain;object-position:center top;cursor:pointer}.landingHint{font-size:12px;font-weight:900;color:var(--green);text-align:center;margin:-4px 0 16px;background:#fff;padding:0 14px}.landingFallbackBtn,.landingHotspot,.landingSpacer{display:none}.topLogo{text-align:center;margin:8px 0 14px}.topLogoText{font-family:var(--display);font-size:30px;line-height:.9;color:var(--blue);letter-spacing:.4px}.topLogoText span{color:var(--green)}.progressLabel{text-align:center;font-family:var(--display);font-size:22px;color:var(--green);letter-spacing:.6px;margin-bottom:10px}.progressTrack{height:10px;background:#dde8a8;border-radius:99px;overflow:hidden;margin:0 4px 26px}.progressBar{height:100%;background:var(--green);border-radius:99px;transition:width .25s ease}.quizCard{background:#fff;border:3px solid var(--line);border-radius:28px;padding:27px 19px 22px;box-shadow:0 3px 0 rgba(127,153,0,.06)}.eyebrow{font-family:var(--display);font-size:25px;color:var(--green);text-align:center;letter-spacing:.5px;margin-bottom:12px}.question{font-family:var(--body);font-size:24px;line-height:1.12;font-weight:900;text-align:center;color:var(--dark);margin:0 0 24px;letter-spacing:-.4px}.answers{display:grid;gap:12px}.answer{border:2px solid #d4dda8;background:#fff;border-radius:15px;text-align:left;color:var(--dark);font-size:15px;line-height:1.32;font-weight:800;padding:16px 15px;cursor:pointer;transition:.15s ease}.answer:hover,.answer.selected{border-color:var(--green);background:#f5f8e4;box-shadow:0 0 0 2px rgba(127,153,0,.12) inset}.nextBtn{width:100%;border:0;margin-top:19px;background:var(--green);color:#fff;border-radius:13px;padding:15px 16px;font-family:var(--display);font-size:25px;letter-spacing:.4px;cursor:pointer}.nextBtn:disabled{background:#b4c28d;cursor:not-allowed}.loading{text-align:center;padding-top:33vh}.spinner{width:76px;height:76px;border:8px solid #dfe8ae;border-top-color:var(--green);border-radius:50%;animation:spin 1s linear infinite;margin:0 auto 22px}@keyframes spin{to{transform:rotate(360deg)}}.loading h2{font-family:var(--display);color:var(--green);font-size:38px;line-height:.95;margin:0 0 12px}.loading p{font-weight:800;font-size:15px;line-height:1.45;margin:0 auto;max-width:310px}.resultScreen{background:#fff;padding:12px 10px 28px}.resultImageWrap{background:#fff;border-radius:22px;overflow:hidden}.resultImg{display:block;width:100%;height:auto;border-radius:20px}.dualNote{margin:14px 10px 0;background:#f2f5df;border:2px dashed var(--line);border-radius:16px;padding:12px 14px;text-align:center;color:var(--dark);font-weight:800;font-size:14px;line-height:1.35}.ctaPanel{margin:16px 10px 0;background:#f5f2fa;border-radius:20px;padding:16px 14px 18px;text-align:center;border:1px solid #e5dfef}.decisionPanel{margin:16px 10px 0;background:#fff;border:2px solid #d5dda5;border-radius:20px;padding:16px 14px;text-align:center}.hint{font-size:13px;line-height:1.35;font-weight:800;margin:0 0 13px;color:var(--text)}.decisionTitle{font-family:var(--display);font-size:30px;color:var(--green);margin:0 0 4px;line-height:1}.btn{width:100%;border:0;border-radius:13px;padding:14px 14px;margin:7px 0;color:#fff;font-family:var(--display);font-size:24px;letter-spacing:.3px;cursor:pointer;line-height:1}.accept{background:var(--deep-green)}.object{background:var(--red)}.share{background:var(--deep-green)}.download{background:var(--blue)}.whatsapp{background:var(--bright-green)}.challenge{background:#2d3f12}.secondaryRow{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:8px}.smallBtn{border:0;background:#fff;color:var(--green);border:2px solid #d5dda5;border-radius:12px;padding:11px 8px;font-weight:900;font-size:12px;cursor:pointer}.linkBtn{border:0;background:transparent;color:var(--green);font-weight:900;text-decoration:underline;margin-top:9px;cursor:pointer}.modal{position:fixed;inset:0;background:rgba(40,40,40,.48);z-index:10;display:flex;align-items:center;justify-content:center;padding:20px}.modalBox{width:100%;max-width:430px;background:#fff;border:3px solid var(--line);border-radius:24px;padding:22px 18px;text-align:center}.modalBox h3{font-family:var(--display);font-size:36px;color:var(--green);line-height:.96;margin:0 0 10px}.modalBox p{font-weight:800;font-size:14px;line-height:1.42;color:var(--dark);margin:0 0 12px}.select{width:100%;border:2px solid #d4dda8;border-radius:13px;padding:13px;background:white;color:var(--dark);font-weight:800;margin-bottom:10px}.toast{position:fixed;z-index:20;left:50%;bottom:18px;transform:translateX(-50%);background:#2d3f12;color:white;border-radius:999px;padding:12px 17px;font-weight:800;font-size:13px;max-width:92%;text-align:center}.appealBox{margin:14px 10px 0;background:#fff4f5;border:2px solid #ffd0d3;border-radius:16px;padding:13px;color:var(--dark);font-weight:800;font-size:14px;line-height:1.38;text-align:center}@media (min-width:481px){.app{padding:18px;background:#fff}.shell{min-height:820px;border-radius:34px;box-shadow:0 20px 45px rgba(0,0,0,.12);overflow:hidden}.landingWrap{min-height:820px}.landingImg{height:auto;min-height:0}.screen{min-height:820px}.resultScreen{padding-top:18px}}@media (max-width:370px){.question{font-size:21px}.answer{font-size:14px;padding:14px}.screen{padding-left:16px;padding-right:16px}.resultScreen{padding-left:6px;padding-right:6px}.btn{font-size:21px}.secondaryRow{grid-template-columns:1fr}}
-  </style>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Savvy Football World Cup Oracle</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --green: #1a7a3c;
+    --dark-green: #0f4d25;
+    --navy: #0d1b2a;
+    --gold: #f5c518;
+    --white: #ffffff;
+    --light-grey: #f4f4f4;
+    --mid-grey: #888;
+    --red: #c0392b;
+  }
+  body {
+    font-family: 'Segoe UI', Arial, sans-serif;
+    background: var(--navy);
+    color: var(--white);
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+  }
+  #app {
+    width: 100%;
+    max-width: 480px;
+    min-height: 100vh;
+    background: var(--navy);
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* ── LANDING ── */
+  .landing {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    padding: 32px 24px;
+    text-align: center;
+    background: linear-gradient(160deg, #0d1b2a 60%, #1a7a3c22 100%);
+  }
+  .landing-logo {
+    font-size: 48px;
+    margin-bottom: 8px;
+  }
+  .landing-badge {
+    background: var(--gold);
+    color: var(--navy);
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    padding: 4px 12px;
+    border-radius: 20px;
+    margin-bottom: 24px;
+  }
+  .landing h1 {
+    font-size: 28px;
+    font-weight: 900;
+    line-height: 1.2;
+    margin-bottom: 12px;
+    color: var(--white);
+  }
+  .landing h1 span { color: var(--gold); }
+  .landing-sub {
+    font-size: 15px;
+    color: #aac;
+    margin-bottom: 32px;
+    line-height: 1.6;
+  }
+  .stamp-row {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-bottom: 32px;
+  }
+  .stamp-flag {
+    font-size: 28px;
+    background: rgba(255,255,255,0.07);
+    border-radius: 8px;
+    padding: 6px 10px;
+  }
+  .btn-primary {
+    background: var(--gold);
+    color: var(--navy);
+    border: none;
+    border-radius: 12px;
+    padding: 16px 40px;
+    font-size: 17px;
+    font-weight: 800;
+    cursor: pointer;
+    width: 100%;
+    max-width: 320px;
+    letter-spacing: 0.5px;
+    transition: transform 0.1s, opacity 0.1s;
+  }
+  .btn-primary:active { transform: scale(0.97); opacity: 0.9; }
+  .landing-footer {
+    margin-top: 20px;
+    font-size: 12px;
+    color: #556;
+  }
+
+  /* ── QUIZ ── */
+  .quiz-screen {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    padding: 0;
+  }
+  .quiz-header {
+    background: var(--dark-green);
+    padding: 16px 20px 12px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .quiz-header-title {
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--gold);
+    flex: 1;
+  }
+  .quiz-counter {
+    font-size: 12px;
+    color: #aac;
+    font-weight: 600;
+  }
+  .progress-bar-wrap {
+    background: rgba(255,255,255,0.1);
+    height: 4px;
+    width: 100%;
+  }
+  .progress-bar-fill {
+    background: var(--gold);
+    height: 4px;
+    transition: width 0.4s ease;
+  }
+  .quiz-body {
+    flex: 1;
+    padding: 28px 20px 20px;
+    display: flex;
+    flex-direction: column;
+  }
+  .question-slot-label {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 10px;
+    opacity: 0.7;
+  }
+  .question-text {
+    font-size: 19px;
+    font-weight: 800;
+    line-height: 1.4;
+    margin-bottom: 28px;
+    color: var(--white);
+  }
+  .options-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    flex: 1;
+  }
+  .option-btn {
+    background: rgba(255,255,255,0.06);
+    border: 1.5px solid rgba(255,255,255,0.12);
+    border-radius: 12px;
+    padding: 16px 18px;
+    font-size: 15px;
+    color: var(--white);
+    text-align: left;
+    cursor: pointer;
+    line-height: 1.4;
+    transition: background 0.15s, border-color 0.15s, transform 0.1s;
+    font-family: inherit;
+  }
+  .option-btn:hover {
+    background: rgba(245,197,24,0.12);
+    border-color: var(--gold);
+  }
+  .option-btn:active { transform: scale(0.98); }
+  .option-btn.selected {
+    background: rgba(245,197,24,0.18);
+    border-color: var(--gold);
+    color: var(--gold);
+    font-weight: 700;
+  }
+
+  /* ── TIEBREAKER ── */
+  .tiebreaker-screen {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    background: linear-gradient(160deg, #0d1b2a 40%, #1a0a2e 100%);
+  }
+  .tiebreaker-header {
+    background: #1a0a2e;
+    padding: 20px;
+    text-align: center;
+    border-bottom: 2px solid var(--gold);
+  }
+  .tiebreaker-seal {
+    font-size: 40px;
+    margin-bottom: 8px;
+  }
+  .tiebreaker-badge {
+    background: var(--red);
+    color: white;
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    padding: 4px 12px;
+    border-radius: 20px;
+    display: inline-block;
+    margin-bottom: 12px;
+  }
+  .tiebreaker-header h2 {
+    font-size: 16px;
+    font-weight: 800;
+    color: var(--gold);
+    line-height: 1.4;
+  }
+  .tiebreaker-body {
+    flex: 1;
+    padding: 24px 20px;
+    display: flex;
+    flex-direction: column;
+  }
+  .tiebreaker-copy {
+    font-size: 15px;
+    color: #ccd;
+    line-height: 1.7;
+    margin-bottom: 28px;
+    font-style: italic;
+    text-align: center;
+    padding: 16px;
+    background: rgba(255,255,255,0.04);
+    border-radius: 12px;
+    border-left: 3px solid var(--red);
+  }
+
+  /* ── CALCULATING ── */
+  .calculating-screen {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    padding: 32px 24px;
+    text-align: center;
+  }
+  .calc-seal { font-size: 64px; margin-bottom: 20px; animation: pulse 1.2s infinite; }
+  @keyframes pulse { 0%,100%{transform:scale(1);opacity:1} 50%{transform:scale(1.08);opacity:0.8} }
+  .calc-title {
+    font-size: 22px;
+    font-weight: 800;
+    color: var(--gold);
+    margin-bottom: 12px;
+  }
+  .calc-sub { font-size: 14px; color: #aac; line-height: 1.6; }
+
+  /* ── RESULT ── */
+  .result-screen {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    padding: 0 0 40px;
+  }
+  .result-top-bar {
+    background: var(--dark-green);
+    padding: 12px 20px;
+    text-align: center;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--gold);
+  }
+  .passport-card {
+    margin: 16px;
+    background: linear-gradient(135deg, #1a2a1a 0%, #0d1b2a 100%);
+    border: 2px solid var(--gold);
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.5);
+  }
+  .passport-card-header {
+    background: var(--dark-green);
+    padding: 16px 20px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    border-bottom: 1px solid rgba(245,197,24,0.3);
+  }
+  .passport-flag { font-size: 44px; }
+  .passport-header-text { flex: 1; }
+  .passport-issued-by {
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--gold);
+    opacity: 0.8;
+    margin-bottom: 2px;
+  }
+  .passport-country {
+    font-size: 24px;
+    font-weight: 900;
+    color: var(--white);
+  }
+  .passport-archetype {
+    font-size: 13px;
+    color: var(--gold);
+    font-weight: 700;
+    margin-top: 2px;
+  }
+  .passport-stamp {
+    font-size: 32px;
+    opacity: 0.6;
+  }
+  .passport-body { padding: 20px; }
+  .passport-section { margin-bottom: 18px; }
+  .passport-section-label {
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--gold);
+    opacity: 0.7;
+    margin-bottom: 6px;
+  }
+  .passport-section-text {
+    font-size: 14px;
+    color: #dde;
+    line-height: 1.6;
+  }
+  .passport-section-text.prophecy {
+    font-style: italic;
+    color: #ccf;
+  }
+  .passport-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-top: 6px;
+  }
+  .passport-tag {
+    background: rgba(245,197,24,0.12);
+    border: 1px solid rgba(245,197,24,0.3);
+    color: var(--gold);
+    font-size: 11px;
+    font-weight: 700;
+    padding: 4px 10px;
+    border-radius: 20px;
+  }
+  .passport-divider {
+    height: 1px;
+    background: rgba(255,255,255,0.08);
+    margin: 16px 0;
+  }
+  .passport-footer {
+    background: rgba(0,0,0,0.3);
+    padding: 12px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 10px;
+    color: #556;
+    font-weight: 600;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+  }
+
+  /* ── OBJECTIONS ── */
+  .objections-section {
+    margin: 0 16px 16px;
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 16px;
+    padding: 20px;
+  }
+  .objections-title {
+    font-size: 16px;
+    font-weight: 800;
+    color: var(--gold);
+    margin-bottom: 6px;
+  }
+  .objections-sub {
+    font-size: 13px;
+    color: #aac;
+    margin-bottom: 16px;
+    line-height: 1.5;
+  }
+  .objection-btns {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .objection-btn {
+    background: rgba(255,255,255,0.06);
+    border: 1.5px solid rgba(255,255,255,0.12);
+    border-radius: 10px;
+    padding: 13px 16px;
+    font-size: 14px;
+    color: var(--white);
+    text-align: left;
+    cursor: pointer;
+    font-family: inherit;
+    font-weight: 600;
+    transition: background 0.15s, border-color 0.15s;
+  }
+  .objection-btn:hover { background: rgba(245,197,24,0.1); border-color: var(--gold); }
+  .objection-btn.selected { background: rgba(245,197,24,0.15); border-color: var(--gold); color: var(--gold); }
+  .objection-response {
+    margin-top: 14px;
+    padding: 14px;
+    background: rgba(245,197,24,0.08);
+    border-radius: 10px;
+    border-left: 3px solid var(--gold);
+    font-size: 14px;
+    color: #dde;
+    line-height: 1.6;
+    font-style: italic;
+  }
+  .dual-select {
+    margin-top: 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  .dual-select label { font-size: 13px; color: #aac; }
+  .dual-select select {
+    background: rgba(255,255,255,0.08);
+    border: 1.5px solid rgba(255,255,255,0.2);
+    border-radius: 8px;
+    padding: 10px 14px;
+    font-size: 14px;
+    color: var(--white);
+    font-family: inherit;
+    width: 100%;
+  }
+
+  /* ── EMBASSY CHALLENGE ── */
+  .embassy-challenge-section {
+    margin: 0 16px 16px;
+    background: linear-gradient(135deg, rgba(26,122,60,0.15) 0%, rgba(13,27,42,0.8) 100%);
+    border: 1.5px solid var(--green);
+    border-radius: 16px;
+    padding: 20px;
+    text-align: center;
+  }
+  .ec-icon { font-size: 32px; margin-bottom: 8px; }
+  .ec-title { font-size: 16px; font-weight: 800; color: var(--white); margin-bottom: 6px; }
+  .ec-sub { font-size: 13px; color: #aac; margin-bottom: 16px; line-height: 1.5; }
+  .btn-secondary {
+    background: transparent;
+    border: 2px solid var(--gold);
+    color: var(--gold);
+    border-radius: 10px;
+    padding: 13px 24px;
+    font-size: 15px;
+    font-weight: 800;
+    cursor: pointer;
+    font-family: inherit;
+    width: 100%;
+    transition: background 0.15s;
+  }
+  .btn-secondary:hover { background: rgba(245,197,24,0.1); }
+
+  /* ── CTAs ── */
+  .cta-section {
+    margin: 0 16px 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .btn-whatsapp {
+    background: #25D366;
+    color: white;
+    border: none;
+    border-radius: 12px;
+    padding: 16px;
+    font-size: 16px;
+    font-weight: 800;
+    cursor: pointer;
+    font-family: inherit;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    transition: opacity 0.15s;
+  }
+  .btn-whatsapp:hover { opacity: 0.9; }
+  .btn-share {
+    background: rgba(255,255,255,0.08);
+    border: 1.5px solid rgba(255,255,255,0.2);
+    color: var(--white);
+    border-radius: 12px;
+    padding: 14px;
+    font-size: 15px;
+    font-weight: 700;
+    cursor: pointer;
+    font-family: inherit;
+    transition: background 0.15s;
+  }
+  .btn-share:hover { background: rgba(255,255,255,0.12); }
+  .btn-restart {
+    background: transparent;
+    border: none;
+    color: #556;
+    font-size: 13px;
+    cursor: pointer;
+    font-family: inherit;
+    padding: 8px;
+    text-decoration: underline;
+    text-align: center;
+  }
+
+  /* ── EMBASSY CHALLENGE RESULT ── */
+  .ec-result-section {
+    margin: 0 16px 16px;
+    border-radius: 16px;
+    padding: 20px;
+    text-align: center;
+  }
+  .ec-result-match {
+    background: rgba(26,122,60,0.2);
+    border: 1.5px solid var(--green);
+  }
+  .ec-result-diff {
+    background: rgba(245,197,24,0.08);
+    border: 1.5px solid var(--gold);
+  }
+  .ec-result-title { font-size: 18px; font-weight: 800; margin-bottom: 8px; }
+  .ec-result-text { font-size: 14px; color: #ccd; line-height: 1.6; }
+
+  /* ── HIDDEN ── */
+  .hidden { display: none !important; }
+</style>
 </head>
-<body><div id="root"></div>
-<script type="text/babel">
-const APP_CONFIG={
-  appUrl:'https://thefusestudios-code.github.io/SF-World-Cup-Oracle/',
-  tournamentChallengeLink:'#'
+<body>
+<div id="app">
+
+<!-- LANDING -->
+<div id="screen-landing" class="landing">
+  <div class="landing-logo">🏆</div>
+  <div class="landing-badge">World Cup 2026 — Official Oracle</div>
+  <h1>The Savvy Football<br/><span>World Cup Oracle</span></h1>
+  <p class="landing-sub">Nigeria didn't qualify.<br/>So we're issuing emergency football passports.<br/>Find out which country owns your football soul.</p>
+  <div class="stamp-row">
+    <span class="stamp-flag">🇧🇷</span>
+    <span class="stamp-flag">🇦🇷</span>
+    <span class="stamp-flag">🇫🇷</span>
+    <span class="stamp-flag">🇲🇦</span>
+    <span class="stamp-flag">🏴󠁧󠁢󠁥󠁮󠁧󠁿</span>
+    <span class="stamp-flag">🇩🇪</span>
+    <span class="stamp-flag">🇪🇸</span>
+    <span class="stamp-flag">🇵🇹</span>
+  </div>
+  <button class="btn-primary" onclick="startQuiz()">Take the Oracle →</button>
+  <p class="landing-footer">Ministry of Football Vibes · Emergency Passport Office</p>
+</div>
+
+<!-- QUIZ -->
+<div id="screen-quiz" class="quiz-screen hidden">
+  <div class="quiz-header">
+    <span class="quiz-header-title">Ministry of Football Vibes</span>
+    <span class="quiz-counter" id="quiz-counter">1 / 6</span>
+  </div>
+  <div class="progress-bar-wrap">
+    <div class="progress-bar-fill" id="progress-bar" style="width:0%"></div>
+  </div>
+  <div class="quiz-body">
+    <div class="question-slot-label" id="q-slot-label">Case File 01</div>
+    <div class="question-text" id="q-text">Loading...</div>
+    <div class="options-list" id="q-options"></div>
+  </div>
+</div>
+
+<!-- TIEBREAKER -->
+<div id="screen-tiebreaker" class="tiebreaker-screen hidden">
+  <div class="tiebreaker-header">
+    <div class="tiebreaker-seal">🔍</div>
+    <div class="tiebreaker-badge">Special Investigation</div>
+    <h2>Your file has been flagged<br/>for further review</h2>
+  </div>
+  <div class="tiebreaker-body">
+    <div class="tiebreaker-copy">
+      "The Oracle has reviewed your answers. Something is not adding up. Your football soul appears to be... divided. Answer this final question carefully. The Ministry is watching."
+    </div>
+    <div class="question-text" id="tb-text">Loading...</div>
+    <div class="options-list" id="tb-options"></div>
+  </div>
+</div>
+
+<!-- CALCULATING -->
+<div id="screen-calculating" class="calculating-screen hidden">
+  <div class="calc-seal">🛂</div>
+  <div class="calc-title">Processing your case file...</div>
+  <div class="calc-sub">The Ministry is reviewing your answers.<br/>Your passport is being prepared.<br/>Please do not attempt to bribe the Oracle.</div>
+</div>
+
+<!-- RESULT -->
+<div id="screen-result" class="result-screen hidden">
+  <div class="result-top-bar">Emergency Passport — Issued by Savvy Football Immigration Office</div>
+
+  <!-- PASSPORT CARD -->
+  <div class="passport-card" id="passport-card">
+    <div class="passport-card-header">
+      <div class="passport-flag" id="res-flag">🏳️</div>
+      <div class="passport-header-text">
+        <div class="passport-issued-by">Oracle Passport · Ministry of Football Vibes</div>
+        <div class="passport-country" id="res-country">Country</div>
+        <div class="passport-archetype" id="res-archetype">Archetype</div>
+      </div>
+      <div class="passport-stamp">📋</div>
+    </div>
+    <div class="passport-body">
+      <div class="passport-section">
+        <div class="passport-section-label">Passport Brief</div>
+        <div class="passport-section-text" id="res-short"></div>
+      </div>
+      <div class="passport-section">
+        <div class="passport-section-label">Full Diagnosis</div>
+        <div class="passport-section-text" id="res-long"></div>
+      </div>
+      <div class="passport-divider"></div>
+      <div class="passport-section">
+        <div class="passport-section-label">Oracle Prophecy</div>
+        <div class="passport-section-text prophecy" id="res-prophecy"></div>
+      </div>
+      <div class="passport-divider"></div>
+      <div class="passport-section">
+        <div class="passport-section-label">Natural Rival</div>
+        <div class="passport-section-text" id="res-rival"></div>
+      </div>
+      <div class="passport-section">
+        <div class="passport-section-label">Passport Status</div>
+        <div class="passport-tags" id="res-tags"></div>
+      </div>
+    </div>
+    <div class="passport-footer">
+      <span>SAVVY FOOTBALL · WC2026</span>
+      <span id="res-objection-status">ACCEPTED</span>
+    </div>
+  </div>
+
+  <!-- OBJECTIONS -->
+  <div class="objections-section">
+    <div class="objections-title">Any Objections?</div>
+    <div class="objections-sub">The Oracle has issued your passport. But football is emotional and we are not the police.</div>
+    <div class="objection-btns">
+      <button class="objection-btn" onclick="handleObjection('accept')">✅ I accept my passport</button>
+      <button class="objection-btn" onclick="handleObjection('dual')">🤝 I accept dual citizenship</button>
+      <button class="objection-btn" onclick="handleObjection('reject')">❌ I reject this passport</button>
+      <button class="objection-btn" onclick="handleObjection('chaos')">🌀 I support chaos, not countries</button>
+    </div>
+    <div class="objection-response hidden" id="objection-response"></div>
+    <div class="dual-select hidden" id="dual-select">
+      <label>Declare your emotional favourite:</label>
+      <select id="dual-country-select" onchange="updateDualCitizenship()">
+        <option value="">— Select a country —</option>
+        <option>Argentina</option><option>Australia</option><option>Belgium</option>
+        <option>Brazil</option><option>Canada</option><option>Colombia</option>
+        <option>Croatia</option><option>Ecuador</option><option>England</option>
+        <option>France</option><option>Germany</option><option>Ghana</option>
+        <option>Japan</option><option>Mexico</option><option>Morocco</option>
+        <option>Netherlands</option><option>Portugal</option><option>Senegal</option>
+        <option>South Korea</option><option>Spain</option><option>Uruguay</option>
+        <option>USA</option>
+      </select>
+    </div>
+  </div>
+
+  <!-- EMBASSY CHALLENGE -->
+  <div class="embassy-challenge-section" id="embassy-challenge-section">
+    <div class="ec-icon">🏟️</div>
+    <div class="ec-title">Think the Oracle got it wrong?</div>
+    <div class="ec-sub">Prove it. Take the Embassy Challenge — 3 bonus questions. If the result differs, you may qualify for Dual Citizenship.</div>
+    <button class="btn-secondary" onclick="startEmbassyChallenge()">Take the Embassy Challenge →</button>
+  </div>
+
+  <!-- EMBASSY CHALLENGE RESULT (hidden until done) -->
+  <div id="ec-result-section" class="ec-result-section hidden">
+    <div class="ec-result-title" id="ec-result-title"></div>
+    <div class="ec-result-text" id="ec-result-text"></div>
+  </div>
+
+  <!-- CTAs -->
+  <div class="cta-section">
+    <button class="btn-whatsapp" onclick="joinEmbassy()">📲 Join Your Embassy on WhatsApp</button>
+    <button class="btn-share" onclick="sharePassport()">📤 Share My Passport</button>
+    <button class="btn-restart" onclick="restartQuiz()">Retake the Oracle</button>
+  </div>
+</div>
+
+</div><!-- #app -->
+
+<script>
+// ═══════════════════════════════════════════════════════
+// CONFIGURATION — Edit links here
+// ═══════════════════════════════════════════════════════
+const WHATSAPP_LINK = "https://chat.whatsapp.com/YOUR_LINK_HERE";
+
+// ═══════════════════════════════════════════════════════
+// QUESTION DATA
+// ═══════════════════════════════════════════════════════
+const COUNTRIES = ["Brazil","Argentina","France","Morocco","England","Germany","Spain","Portugal"];
+
+const FLAGS = {
+  Brazil:"🇧🇷", Argentina:"🇦🇷", France:"🇫🇷", Morocco:"🇲🇦",
+  England:"🏴󠁧󠁢󠁥󠁮󠁧󠁿", Germany:"🇩🇪", Spain:"🇪🇸", Portugal:"🇵🇹"
 };
-const ASSETS={
-  landing:'Savvy Oracle.png',
-  plane:'plane clipart.png',
-  results:{
-    Brazil:'stamp-brazil.png',
-    Argentina:'stamp-argentina.png',
-    France:'stamp-france.png',
-    Morocco:'stamp-morocco (1).png',
-    England:'stamp-england.png',
-    Germany:'stamp-germany (1).png',
-    Spain:'stamp-spain.png',
-    Portugal:'stamp-portugal.png'
+
+// Each slot: array of variants. Each variant: { text, options: [{text, country}] }
+const QUESTION_SLOTS = [
+  // SLOT 1 — Emergency Passport Reason (Q1 — worth 2 pts)
+  [
+    {
+      text: "Nigeria is not going. The Ministry gives you one emergency World Cup passport. What are you choosing?",
+      options: [
+        {text:"Football that carries skill, rhythm, and dancing, that must embarrass defenders", country:"Brazil"},
+        {text:"Champion aura. I'm still feeling the warmth of the trophy", country:"Argentina"},
+        {text:"African solidarity jor! I'm not neutral at all.", country:"Morocco"},
+        {text:"An efficient World Cup machine that has embarrassed itself recently, and is now angry", country:"Germany"},
+        {text:"Familiar faces from a league I've come to love. This time the trophy's coming home", country:"England"},
+        {text:"Possession. Pass, pass, pass until the opponents give up", country:"Spain"},
+        {text:"I can't even lie. I'm only following one man's story, and the plot twist that will correct football injustice", country:"Portugal"},
+        {text:"A squad with everything. No area is lacking. Everywhere choke!", country:"France"}
+      ]
+    },
+    {
+      text: "The Ministry asks: "Why should we approve your World Cup passport?" What is your honest answer?",
+      options: [
+        {text:"I need romantic football my eyes can truly enjoy. Super Eagles have already done me strong thing.", country:"Brazil"},
+        {text:"I want to stand by my GOAT, sorry. the champions. I can't abandon ship just yet", country:"Argentina"},
+        {text:"Africa is at a World Cup and I am sitting at home? That is not possible", country:"Morocco"},
+        {text:"I believe in a World Cup machine that been sleeping, but are coming alive this time", country:"Germany"},
+        {text:"I believe this is the time for football to come back home", country:"England"},
+        {text:"I believe in football that sucks joy out of opponents while they run around almost aimlessly", country:"Spain"},
+        {text:"I just want to see justice served for my GOAT. No cap", country:"Portugal"},
+        {text:"I like when there's power, speed, and stamina in every department", country:"France"}
+      ]
+    },
+    {
+      text: "You reach the World Cup embassy queue. Which line are you entering first?",
+      options: [
+        {text:"The line where football is a religion and stepovers are scripture", country:"Brazil"},
+        {text:"The line with champions who have not finished reminding people", country:"Argentina"},
+        {text:"The African line. My reasons are personal and non-negotiable", country:"Morocco"},
+        {text:"The line of World Cup pedigree. Even though machine that has faltered recently, but you can't bet against them.", country:"Germany"},
+        {text:"The line with football origin cred, and every tournament is a hope for return", country:"England"},
+        {text:"The line where football is not by gra gra, but by controlled possession", country:"Spain"},
+        {text:"The line I've been standing in for years. One man's unfinished business is my business", country:"Portugal"},
+        {text:"The line where team B is enough to scare other genuine title contenders", country:"France"}
+      ]
+    }
+  ],
+  // SLOT 2 — Football Evidence
+  [
+    {
+      text: "What convinces you that a country is genuinely dangerous?",
+      options: [
+        {text:"Their bench has players who would walk into other national squads without blinking", country:"France"},
+        {text:"I have watched these boys every Saturday. I am basically their unpaid analyst", country:"England"},
+        {text:"They keep the ball like it belongs to them legally", country:"Spain"},
+        {text:"Their biggest name has a case file that is still open and heavily documented", country:"Portugal"},
+        {text:"They have a one in a lifetime genius, who has done it before", country:"Argentina"},
+        {text:"When I look at their attack and see dribbles, rhythm, and pure footballing joy", country:"Brazil"},
+        {text:"When the whole continent is looking up to them and they know it", country:"Morocco"},
+        {text:"They have World Cup receipts. It's never wise to underestimate them", country:"Germany"}
+      ]
+    },
+    {
+      text: "You see the squad list. What makes you say, "Okay, these people are serious"?",
+      options: [
+        {text:"Their substitutes are better than most countries' starters and they know it", country:"France"},
+        {text:"I can name the whole squad because Saturday football has done something to me", country:"England"},
+        {text:"Their midfield line looks like it was assembled by engineers", country:"Spain"},
+        {text:"Their number one name has more records than most countries have trophies", country:"Portugal"},
+        {text:"The squad is full of players that have done it before, and still carry a superstar firepower.", country:"Argentina"},
+        {text:"You can already picture one dribbler causing national confusion before kickoff starts", country:"Brazil"},
+        {text:"They look like a team that will run, fight, recover, and stress you for 90 minutes", country:"Morocco"},
+        {text:"You just know tournament history is sitting somewhere inside that list", country:"Germany"}
+      ]
+    },
+    {
+      text: "Before kickoff, what scares you most about an opponent?",
+      options: [
+        {text:"When their Plan B is better than your entire strategy document", country:"France"},
+        {text:"When I've watched half their players all season and something about a tournament changes them entirely", country:"England"},
+        {text:"When their first touch is so clean it becomes a moral problem", country:"Spain"},
+        {text:"When one man's name is already hanging over the match like prophecy", country:"Portugal"},
+        {text:"When their best player is a champion moving at a pace that the match has not caught up with yet", country:"Argentina"},
+        {text:"When their attack is the kind that makes defenders whisper among themselves before kickoff", country:"Brazil"},
+        {text:"When the entire team runs like they have a personal debt to settle with the scoreline", country:"Morocco"},
+        {text:"When the badge, the history, and the tournament memory are all on the pitch together", country:"Germany"}
+      ]
+    }
+  ],
+  // SLOT 3 — Victory Blueprint
+  [
+    {
+      text: "Your adopted country has just won. Which version of that win makes you most satisfied?",
+      options: [
+        {text:"A goal involving at least one piece of skill that has no business being in a World Cup match", country:"Brazil"},
+        {text:"Clinical, complete, no drama. They had more weapons and used them properly", country:"France"},
+        {text:"1-0. Compact, organized, and the opponents barely touched the ball in the final 30", country:"Germany"},
+        {text:"They kept possession for so long that the other team eventually forgot why they came", country:"Spain"},
+        {text:"One moment of genius that settled the whole argument in under five seconds", country:"Argentina"},
+        {text:"A win that the whole of Africa watched with their hands over their mouths", country:"Morocco"},
+        {text:"A late winner from the man, looking perfectly timed like he planned it before the tournament", country:"Portugal"},
+        {text:"Any win. Any score. Any goal. Because it might genuinely, actually, finally be coming home", country:"England"}
+      ]
+    },
+    {
+      text: "Which World Cup moment makes you stand up from your seat?",
+      options: [
+        {text:"A stepover into a nutmeg into a goal. In that order", country:"Brazil"},
+        {text:"A sixth substitute scoring in the 88th minute because their bench is genuinely illegal", country:"France"},
+        {text:"A last-ditch tackle that saves the clean sheet in the 93rd minute", country:"Germany"},
+        {text:"A one-touch passing move so long that you lose count of the passes", country:"Spain"},
+        {text:"A goal that one person scored basically alone from the halfway line", country:"Argentina"},
+        {text:"An African save in a penalty shootout that has no reasonable explanation", country:"Morocco"},
+        {text:"A late goal from the big man in a knockout match when everyone had already mourned", country:"Portugal"},
+        {text:"An 88th-minute winner from a player I've watched bottle it all season", country:"England"}
+      ]
+    },
+    {
+      text: "What is your adopted country's real weapon?",
+      options: [
+        {text:"Individual genius that defenders cannot prepare for, only suffer through", country:"Brazil"},
+        {text:"Depth so absurd that their C team is a serious conversation", country:"France"},
+        {text:"Tournament experience. They have been here before. Many times. Under worse conditions", country:"Germany"},
+        {text:"Patience. They will keep the ball until your team starts arguing with each other", country:"Spain"},
+        {text:"One player who operates at a level the game has not fully invented rules for yet", country:"Argentina"},
+        {text:"Collective heart. When the whole team decides nobody is going through today, nobody goes through", country:"Morocco"},
+        {text:"Legacy pressure. Every opponent knows what this man can do and still cannot stop it", country:"Portugal"},
+        {text:"Familiarity. I have watched these boys under pressure every weekend. I know exactly what they can do", country:"England"}
+      ]
+    }
+  ],
+  // SLOT 4 — Star / Squad / System
+  [
+    {
+      text: "In a knockout match, what do you trust most?",
+      options: [
+        {text:"People who have touched the trophy and remember how it felt", country:"Argentina"},
+        {text:"Eleven players who will die before they concede", country:"Morocco"},
+        {text:"Players I have personally insulted and praised every Saturday for three years", country:"England"},
+        {text:"The kind of icon whose name makes referees behave differently", country:"Portugal"},
+        {text:"One player doing something in the final third that no coaching manual has a name for yet", country:"Brazil"},
+        {text:"A bench deep enough to change the game three different ways after 60 minutes", country:"France"},
+        {text:"A team that has been in this exact situation before and did not blink. History doesn't lie", country:"Germany"},
+        {text:"Control that looks so calm it almost makes the other team feel embarrassed for pressing", country:"Spain"}
+      ]
+    },
+    {
+      text: "When the pressure is smelling, who do you trust?",
+      options: [
+        {text:"People who have been in bigger rooms and already survived", country:"Argentina"},
+        {text:"A group of people who are physically and spiritually incapable of accepting defeat", country:"Morocco"},
+        {text:"These boys I've screamed at through my television all season. At least I know their panic face personally", country:"England"},
+        {text:"The man who has saved this kind of moment before and filed it under "already handled"", country:"Portugal"},
+        {text:"A player who was born to do something ridiculous in moments exactly like this", country:"Brazil"},
+        {text:"The substitute who hasn't played and is now the most dangerous person on the pitch", country:"France"},
+        {text:"A team that does not panic because panic was never installed in the factory settings", country:"Germany"},
+        {text:"The team that responds to pressure by slowing everything down until the pressure forgets why it came", country:"Spain"}
+      ]
+    },
+    {
+      text: "Your team needs one goal in the final ten minutes. What gives you hope?",
+      options: [
+        {text:"Champion muscle memory. There is a switch inside people who have touched the trophy. It activates here", country:"Argentina"},
+        {text:"African stubbornness is not a tactic. It's a spiritual condition. They are not conceding.", country:"Morocco"},
+        {text:"One Premier League player remembering they are actually, genuinely good at football when it truly matters", country:"England"},
+        {text:"The man. Ten minutes is more than enough. He has done more with less", country:"Portugal"},
+        {text:"The fact that one person on the pitch is operating on a frequency the defenders cannot locate", country:"Brazil"},
+        {text:"There are still three fresh, dangerous, expensive options on the bench. The problem is solvable", country:"France"},
+        {text:"Germany has been in final minutes before. They have receipts. More than most", country:"Germany"},
+        {text:"Possession. If we get the ball back and keep it, the goal will come when they get tired of chasing", country:"Spain"}
+      ]
+    }
+  ],
+  // SLOT 5 — Suffering Profile
+  [
+    {
+      text: "What kind of football suffering can you tolerate?",
+      options: [
+        {text:"Any suffering that came with beautiful football before the pain started", country:"Brazil"},
+        {text:"Suffering I saw coming from September. The EPL has been preparing me", country:"England"},
+        {text:"Suffering that came while carrying something bigger than yourself", country:"Morocco"},
+        {text:"Any suffering except losing possession unnecessarily. That one is personal", country:"Spain"},
+        {text:"Losing as champions. At least the receipt is not expired. The trophy happened.", country:"Argentina"},
+        {text:"Losing with that squad? I can survive it. What I cannot survive is the explanation for why", country:"France"},
+        {text:"Any suffering except watching the man give everything and still go home empty. That one lingers", country:"Portugal"},
+        {text:"German suffering is temporary. The machine does not retire. It comes back recalibrated", country:"Germany"}
+      ]
+    },
+    {
+      text: "Which type of pain can you still defend at the viewing centre?",
+      options: [
+        {text:""The football was sweet. You cannot take that from me."", country:"Brazil"},
+        {text:""This is how they always behave. I knew. I was prepared."", country:"England"},
+        {text:""They fought for Africa. You should be grateful they were there."", country:"Morocco"},
+        {text:""We lost possession and that is a crime I will not forgive easily."", country:"Spain"},
+        {text:""They are champions. One bad tournament doesn't cancel the receipt."", country:"Argentina"},
+        {text:""With that squad? Something went wrong in the dressing room. The talent was not the problem."", country:"France"},
+        {text:""He deserved better. That's the only thing I'm saying today."", country:"Portugal"},
+        {text:""Four stars. This is not the end. This is maintenance."", country:"Germany"}
+      ]
+    },
+    {
+      text: "Your adopted country has broken your heart. What excuse are you most likely to give?",
+      options: [
+        {text:"The football was still alive even when the result was not", country:"Brazil"},
+        {text:"This is not new information. I have been emotionally hardened by years of Premier League", country:"England"},
+        {text:"They gave Africa everything. The scoreline does not know that", country:"Morocco"},
+        {text:"Once the midfield balance was broken, the result was already written", country:"Spain"},
+        {text:"Champions lose tournaments. They do not lose champion status. There is a difference.", country:"Argentina"},
+        {text:"No team with that squad should be going home this early. Something happened in that dressing room that we will never fully know.", country:"France"},
+        {text:"He gave everything this tournament had room for. Football is not always fair to great men.", country:"Portugal"},
+        {text:"The machine is being serviced. It has never been permanently decommissioned. Watch the next one.", country:"Germany"}
+      ]
+    }
+  ],
+  // SLOT 6 — Pedigree vs Hunger
+  [
+    {
+      text: "Which World Cup story do you respect most?",
+      options: [
+        {text:"The recent champions reminding you that defending a title is its own mission", country:"Argentina"},
+        {text:"The loaded team arriving with enough quality to embarrass the bracket", country:"France"},
+        {text:"The tournament machine that fell twice and coming back with something to prove", country:"Germany"},
+        {text:"The iconic career still searching for its final piece of silverware argument", country:"Portugal"},
+        {text:"The country that invented this whole thing returning to take back what belongs to them by birthright", country:"Brazil"},
+        {text:"The nation that gave the world football finally winning it back. Yes, that story. That one.", country:"England"},
+        {text:"An African country not just participating but threatening to own the entire conversation", country:"Morocco"},
+        {text:"The possession philosophers proving once and for all that patience and intelligence beats pace and panic", country:"Spain"}
+      ]
+    },
+    {
+      text: "Which tournament narrative would you enjoy defending?",
+      options: [
+        {text:"Champions trying to show last time was not a fluke or a farewell", country:"Argentina"},
+        {text:"A loaded squad arriving and looking confused why everyone is surprised", country:"France"},
+        {text:"A four-star country that owes football an explanation after two disasters", country:"Germany"},
+        {text:"One legendary story that still has at least one paragraph left to write", country:"Portugal"},
+        {text:"The Samba nation reminding the world what football smells like when it's not afraid", country:"Brazil"},
+        {text:"Football's founding nation finally, actually, historically winning their own tournament in our lifetime", country:"England"},
+        {text:"Africa not just being present but making the whole tournament stop and pay attention", country:"Morocco"},
+        {text:"A team proving that controlling the ball is the same as controlling the match and therefore the result", country:"Spain"}
+      ]
+    },
+    {
+      text: "If football had storylines, who deserves a deep run?",
+      options: [
+        {text:"The champions who still have unfinished business with the trophy", country:"Argentina"},
+        {text:"The team that looks like it was designed in a laboratory specifically to win", country:"France"},
+        {text:"The machine that embarrassed itself publicly and needs justice", country:"Germany"},
+        {text:"The nation that is carrying one man's legacy argument to its conclusion", country:"Portugal"},
+        {text:"The country that owns football's soul, reclaiming the trophy as their natural inheritance", country:"Brazil"},
+        {text:"The team that gave football to the world and have been waiting for decades to bring back our trophy", country:"England"},
+        {text:"The African side that silences every person who said Africa was not ready for this level", country:"Morocco"},
+        {text:"The team that proves ball possession is not a style. It is a weapon. And they are armed.", country:"Spain"}
+      ]
+    }
+  ]
+];
+
+// WILDCARD QUESTIONS (Embassy Challenge — 3 shown)
+const WILDCARD_QUESTIONS = [
+  {
+    text: "Your country wins and you want to be annoying online. What is your caption?",
+    options: [
+      {text:""Football is not a tax. Let the people enjoy skills with rhythm."", country:"Brazil"},
+      {text:""Champions behave like champions. File that."", country:"Argentina"},
+      {text:""Africa is not here to form the background. Take note."", country:"Morocco"},
+      {text:""Laugh at the World Cup machine in April. Check back in July."", country:"Germany"},
+      {text:""Their bench is already making people nervous. Imagine the first eleven."", country:"France"},
+      {text:""I have been watching these boys all season. Trust me when I say it's coming home."", country:"England"},
+      {text:""Possession is not slow. It is calculated. Learn the difference."", country:"Spain"},
+      {text:""I don't want to hear anything that does not come with statistics."", country:"Portugal"}
+    ]
+  },
+  {
+    text: "You can only buy one jersey. Which reason makes sense?",
+    options: [
+      {text:"Yellow, joyful, and you wear it when football is supposed to be fun", country:"Brazil"},
+      {text:"The champions' colours. Not because of bandwagon. Because of respect", country:"Argentina"},
+      {text:"The one I can wear to a Premier League pub and have seven opinions ready", country:"England"},
+      {text:"The one that doubles as exhibit A in an ongoing all-time legacy argument", country:"Portugal"},
+      {text:"Knowing it belongs to a squad that was clearly assembled with bad intentions", country:"France"},
+      {text:"Wearing Africa's ambitions in a place where most people said Africa would not reach", country:"Morocco"},
+      {text:"Knowing four stars are watching the current ones from the badge", country:"Germany"},
+      {text:"Knowing the people inside it believe the ball is theirs until further notice", country:"Spain"}
+    ]
+  }
+];
+
+// TIE-BREAKER VARIANTS
+const TIEBREAKER_VARIANTS = [
+  {
+    text: "Your file is causing argument at the Ministry. One final question before we stamp your passport.",
+    options: [
+      {text:"I need football that makes people forget they had somewhere to be", country:"Brazil"},
+      {text:"I need champions who still have trophy muscle memory", country:"Argentina"},
+      {text:"I need the team with weapons I haven't even counted yet", country:"France"},
+      {text:"I need Africa to disturb this tournament properly", country:"Morocco"},
+      {text:"I need the boys I've watched all season to finally, for real, actually bring it home", country:"England"},
+      {text:"I need the machine to remember what it was designed for", country:"Germany"},
+      {text:"I need control, patience, and midfield that has no intention of rushing", country:"Spain"},
+      {text:"I need one more legacy moment before the greatest argument in football history gets permanently closed", country:"Portugal"}
+    ]
+  },
+  {
+    text: "The Ministry is confused. Your passport has entered extra time. Pick one final truth.",
+    options: [
+      {text:"I want football I will remember and not just a result I will quote", country:"Brazil"},
+      {text:"I came to be near champions while the warmth is still there", country:"Argentina"},
+      {text:"I want dangerous talent and too many options at every position", country:"France"},
+      {text:"Africa is at a World Cup and I owe them more than casual observation", country:"Morocco"},
+      {text:"These are my people from Saturday football and I cannot be neutral", country:"England"},
+      {text:"I believe the machine is simply overdue a serious tournament", country:"Germany"},
+      {text:"I want a team that controls the ball like it has nowhere to go", country:"Spain"},
+      {text:"I came with a legacy to defend, statistics to quote, and absolutely no intention of being calm about it", country:"Portugal"}
+    ]
+  },
+  {
+    text: "Final answer. One sentence. Which one is most like you?",
+    options: [
+      {text:""Football must sweet the eye."", country:"Brazil"},
+      {text:""Champions know what pressure smells like."", country:"Argentina"},
+      {text:""Their bench would start for twelve countries."", country:"France"},
+      {text:""Africa is not here to be polite."", country:"Morocco"},
+      {text:""It's coming home."", country:"England"},
+      {text:""Write off the World Cup machines at your peril."", country:"Germany"},
+      {text:""Keep the ball. Keep your life."", country:"Spain"},
+      {text:""The all-time case file is still open."", country:"Portugal"}
+    ]
+  }
+];
+
+// ═══════════════════════════════════════════════════════
+// RESULT PERSONAS
+// ═══════════════════════════════════════════════════════
+const RESULTS = {
+  Brazil: {
+    flag:"🇧🇷", country:"Brazil", archetype:"The Romantic",
+    short:"Your passport has been issued by the Ministry of Beautiful Football.",
+    long:"You are not here for results. You are here for the feeling. The stepover, the nutmeg, the goal that makes the commentator forget their script. You believe football is an art form and you will defend that position even when the scoreline is embarrassing.",
+    prophecy:"Your World Cup will involve at least one moment of individual genius that makes you forget Nigeria didn't qualify, followed by one moment of defensive chaos that reminds you why you were worried.",
+    rival:"Argentina — because they keep winning things and you keep insisting that is not the point.",
+    tags:["The Romantic","Beautiful Football Loyalist","Samba Embassy Citizen","Vibes Over Trophies"]
+  },
+  Argentina: {
+    flag:"🇦🇷", country:"Argentina", archetype:"The Champion Aura Loyalist",
+    short:"Your passport has been issued by the Ministry of Trophy Memory.",
+    long:"You are emotionally attached to the idea that champions carry something the rest of the field cannot manufacture. You were there for 2022. You are not ready to let go. The warmth of that trophy is still in your chest and you are not apologising for it.",
+    prophecy:"Your World Cup will involve quiet confidence, one moment of genuine panic, a group chat argument about whether they are still the best, and a final round where you say 'I told you' to at least three people.",
+    rival:"Brazil — because they have the aesthetics and you have the receipts, and neither side will admit the other has a point.",
+    tags:["Champion Aura Loyalist","Trophy Memory Holder","2022 Is Not Expired","Defending Champion Embassy"]
+  },
+  France: {
+    flag:"🇫🇷", country:"France", archetype:"The Analyst",
+    short:"Your passport has been issued by the Ministry of Tactical Depth.",
+    long:"You look at squads the way other people look at balance sheets. You know their bench. You have opinions about their system. You are not emotional about this — you are correct about this. The talent is there and you are simply documenting it.",
+    prophecy:"Your World Cup will involve you explaining squad depth to people who did not ask, one unexpected early scare that you will call 'rotation issues', and a deep run that you will describe as 'inevitable in hindsight'.",
+    rival:"Germany — because they keep winning with less talent and you find that personally offensive.",
+    tags:["The Analyst","Tactical Depth Citizen","Squad Sheet Reviewer","Bench Quality Ambassador"]
+  },
+  Morocco: {
+    flag:"🇲🇦", country:"Morocco", archetype:"The African Purist",
+    short:"Your passport has been issued by the Ministry of Continental Pride.",
+    long:"You are not just supporting a football team. You are carrying something. Every Morocco match is a statement, a proof of concept, a message to everyone who said Africa was not ready. You were in 2022. You remember. You are back.",
+    prophecy:"Your World Cup will involve at least one moment where the whole continent holds its breath together, one defensive performance that makes tactical analysts uncomfortable, and a group chat that becomes a continental prayer circle.",
+    rival:"England — because they invented the game and have been dining on that credit ever since.",
+    tags:["The African Purist","Continental Pride Carrier","2022 Was Not A Fluke","Africa's Embassy"]
+  },
+  England: {
+    flag:"🏴󠁧󠁢󠁥󠁮󠁧󠁿", country:"England", archetype:"The Masochist",
+    short:"Your passport has been issued by the Ministry of Perpetual Hope.",
+    long:"You have been watching these boys every Saturday. You know their panic face. You know their bottle face. You know the exact moment they will do the thing you knew they would do. And yet here you are. Again. Saying this time is different.",
+    prophecy:"Your World Cup will involve loud pre-tournament confidence, one genuinely impressive group stage performance, a penalty shootout that you will not be able to watch, and a post-tournament statement that begins with 'We were so close'.",
+    rival:"Morocco — because they have less history and more belief and that combination is deeply inconvenient.",
+    tags:["The Masochist","It's Coming Home (Again)","Saturday Football Veteran","Perpetual Hope Citizen"]
+  },
+  Germany: {
+    flag:"🇩🇪", country:"Germany", archetype:"The Pragmatist",
+    short:"Your passport has been issued by the Ministry of Tournament Reliability.",
+    long:"You do not need the football to be beautiful. You need it to work. You respect the system, the structure, the tournament pedigree. You know they have embarrassed themselves recently. You also know the machine has been recalibrated. You are not worried.",
+    prophecy:"Your World Cup will involve a slow start that everyone misreads as decline, a mid-tournament adjustment that nobody notices until it is too late, and a deep run that makes you say 'I said so' to everyone who wrote them off in March.",
+    rival:"France — because they have more talent and somehow that is not always enough, which is the most German thing in football.",
+    tags:["The Pragmatist","Tournament Machine Citizen","Four Stars On The Badge","Recalibrated And Ready"]
+  },
+  Spain: {
+    flag:"🇪🇸", country:"Spain", archetype:"The Connoisseur",
+    short:"Your passport has been issued by the Ministry of Possession Philosophy.",
+    long:"You believe football is not by gra gra. You believe in the pass, the movement, the control. You find high-tempo chaos aesthetically offensive. You have opinions about midfield balance that most people in your group chat do not want to hear. You are right anyway.",
+    prophecy:"Your World Cup will involve you explaining why possession statistics matter to people who only care about goals, one match where the control is so complete it becomes hypnotic, and a knockout round where you are either brilliant or baffling.",
+    rival:"Brazil — because they also claim to play beautiful football but they do it with chaos and you find that philosophically inconsistent.",
+    tags:["The Connoisseur","Possession Is Not Slow","Midfield Philosophy Holder","Pass Until They Forget"]
+  },
+  Portugal: {
+    flag:"🇵🇹", country:"Portugal", archetype:"The Legacy Defence Counsel",
+    short:"Your passport has been issued by the Ministry of Legacy Affairs.",
+    long:"You say you support Portugal, but the Oracle suspects this is really about one man, one celebration, and one unfinished argument. You are emotionally invested in the idea that football still owes Ronaldo one final World Cup chapter. Logic may disturb you, but it cannot deport you.",
+    prophecy:"Your World Cup will involve loud confidence, sudden panic, unnecessary comparisons, and at least one group-chat argument that begins with 'If Messi did this.'",
+    rival:"Argentina — because every Portugal citizen knows the real opponent may not even be on the pitch.",
+    tags:["Legacy Defence Counsel","Ronaldo FC in Diplomatic Clothing","Siuuu Embassy Applicant","Pending Emotional Court Case"]
   }
 };
-const WHATSAPP_LINKS={Brazil:'#',Argentina:'#',France:'#',Morocco:'#',England:'#',Germany:'#',Spain:'#',Portugal:'#'};
-const RESULT_META={
-  Brazil:{flag:'🇧🇷',archetype:'The Joy Merchant'},Argentina:{flag:'🇦🇷',archetype:'The Destiny Addict'},France:{flag:'🇫🇷',archetype:'The Talent Enjoyer'},Morocco:{flag:'🇲🇦',archetype:'The African Cousin'},England:{flag:'🏴',archetype:'The EPL Relative'},Germany:{flag:'🇩🇪',archetype:'The Ruthless Operator'},Spain:{flag:'🇪🇸',archetype:'The Possession Pastor'},Portugal:{flag:'🇵🇹',archetype:'The Legacy Lawyer'}
-};
-const WORLD_CUP_TEAMS=[['A','Mexico','🇲🇽'],['A','South Africa','🇿🇦'],['A','Korea Republic','🇰🇷'],['A','Czechia','🇨🇿'],['B','Canada','🇨🇦'],['B','Bosnia and Herzegovina','🇧🇦'],['B','Qatar','🇶🇦'],['B','Switzerland','🇨🇭'],['C','Brazil','🇧🇷'],['C','Morocco','🇲🇦'],['C','Haiti','🇭🇹'],['C','Scotland','🏴'],['D','United States','🇺🇸'],['D','Paraguay','🇵🇾'],['D','Australia','🇦🇺'],['D','Türkiye','🇹🇷'],['E','Germany','🇩🇪'],['E','Curaçao','🇨🇼'],['E',"Côte d'Ivoire",'🇨🇮'],['E','Ecuador','🇪🇨'],['F','Netherlands','🇳🇱'],['F','Japan','🇯🇵'],['F','Sweden','🇸🇪'],['F','Tunisia','🇹🇳'],['G','Belgium','🇧🇪'],['G','Egypt','🇪🇬'],['G','IR Iran','🇮🇷'],['G','New Zealand','🇳🇿'],['H','Spain','🇪🇸'],['H','Cabo Verde','🇨🇻'],['H','Saudi Arabia','🇸🇦'],['H','Uruguay','🇺🇾'],['I','France','🇫🇷'],['I','Senegal','🇸🇳'],['I','Iraq','🇮🇶'],['I','Norway','🇳🇴'],['J','Argentina','🇦🇷'],['J','Algeria','🇩🇿'],['J','Austria','🇦🇹'],['J','Jordan','🇯🇴'],['K','Portugal','🇵🇹'],['K','Congo DR','🇨🇩'],['K','Uzbekistan','🇺🇿'],['K','Colombia','🇨🇴'],['L','England','🏴'],['L','Croatia','🇭🇷'],['L','Ghana','🇬🇭'],['L','Panama','🇵🇦']].map(([group,country,flag])=>({group,country,flag}));
-const QUESTION_POOL=[
- {slot:'grief',variants:[
-  {q:'Nigeria did not qualify. What is your official coping strategy?',a:[['Choose joy. I refuse to suffer twice.','Brazil'],['Attach myself to football destiny and suffer beautifully.','Argentina'],['Adopt the strongest African agenda immediately.','Morocco'],['Find one superstar and argue for him till December.','Portugal']]},
-  {q:'The Super Eagles are at home. Your World Cup emotion is now available for transfer. Where does your spirit go?',a:[['To skills, goals and enjoyment. Life is hard enough.','Brazil'],['To drama, tears and main-character football.','Argentina'],['To Africa. Somebody must carry the continent.','Morocco'],['To legacy debates. I came prepared with receipts.','Portugal']]}
- ]},
- {slot:'viewing',variants:[
-  {q:'Your viewing centre loses signal during a big match. What do you do?',a:[['Start shouting but somehow make it entertaining.','Brazil'],['Blame the referee, CAF, FIFA and village people.','Argentina'],['Organise people calmly and find another screen.','Germany'],['Say this is why tactics matter more than vibes.','Spain']]},
-  {q:'NEPA takes light just as the striker is through on goal. Your reaction?',a:[['Laugh first. If you do not laugh, you will cry.','Brazil'],['Fall to the floor like destiny has betrayed you.','Argentina'],['Ask who failed to buy fuel before kickoff.','Germany'],['Begin a tactical lecture nobody requested.','Spain']]}
- ]},
- {slot:'taste',variants:[
-  {q:'Pick your football love language.',a:[['Skills, rhythm and irresponsible enjoyment.','Brazil'],['Passion, tears and dramatic redemption.','Argentina'],['Pace, power and squad depth that feels illegal.','France'],['Clean passing until opponents question their life.','Spain']]},
-  {q:'What kind of goal gives you peace?',a:[['A dribble, a chop, another dribble, then disrespect.','Brazil'],['A 90th-minute winner after emotional damage.','Argentina'],['A counterattack so fast the camera almost gives up.','France'],['A 28-pass move that looks like a sermon.','Spain']]}
- ]},
- {slot:'groupchat',variants:[
-  {q:'In the WhatsApp group, what is your matchday role?',a:[['Meme supplier and chief vibes officer.','Brazil'],['Long voice notes after every mistake.','England'],['African pride enforcement officer.','Morocco'],['Cold analyst with screenshots and receipts.','Germany']]},
-  {q:'Your group chat is fighting after a controversial penalty. You are the person who...',a:[['Turns it into premium comedy immediately.','Brazil'],['Sends EPL comparisons even when nobody asked.','England'],['Reminds everyone Africa has been cheated before.','Morocco'],['Drops frame-by-frame analysis like VAR assistant.','Germany']]}
- ]},
- {slot:'penalties',variants:[
-  {q:'Penalty shootout starts. What is your body doing?',a:[['Laughing loudly to hide fear.','Brazil'],['Praying, bargaining and remembering ancestors.','Argentina'],['Calculating goalkeeper tendencies like a data scientist.','Germany'],['Already preparing excuses in case of nonsense.','England']]},
-  {q:'Your adopted country needs one penalty to survive. What are you trusting?',a:[['Pure vibes and audacity.','Brazil'],['Tears, destiny and one dramatic close-up.','Argentina'],['Preparation, order and German-level seriousness.','Germany'],['The hope that this is finally not heartbreak again.','England']]}
- ]},
- {slot:'trust',variants:[
-  {q:'What type of team do you secretly trust?',a:[['The one with outrageous attackers everywhere.','France'],['The one with one unavoidable main character.','Portugal'],['The one carrying continental responsibility.','Morocco'],['The one that controls the ball and your blood pressure.','Spain']]},
-  {q:'Choose your tournament insurance policy.',a:[['Bench full of players who would start elsewhere.','France'],['One superstar who can bend the story by force.','Portugal'],['An African team defending respect with full chest.','Morocco'],['Possession, patience and spiritual ball control.','Spain']]}
- ]},
- {slot:'loss',variants:[
-  {q:'Your adopted country loses. What is your first statement?',a:[['At least we entertained the world.','Brazil'],['Football is pain. I will be back tomorrow.','Argentina'],['The system failed only in small details.','Germany'],['The media pressure was too much, please.','England']]},
-  {q:'After heartbreak, how do you defend your embassy?',a:[['Nobody can deny the enjoyment.','Brazil'],['This is just chapter one of the destiny arc.','Argentina'],['The process was correct. Execution betrayed us.','Germany'],['These boys are young. Give them another tournament.','England']]}
- ]},
- {slot:'prophecy',variants:[
-  {q:'Choose your World Cup prophecy style.',a:[['Vibes will carry us where tactics cannot explain.','Brazil'],['Suffering first, glory later. That is football heritage.','Argentina'],['Africa is not going there to clap for anybody.','Morocco'],['Big players decide big tournaments. Simple.','Portugal']]},
-  {q:'The Oracle asks for your final tournament belief. You say:',a:[['Football must be enjoyed or reported to the authorities.','Brazil'],['Destiny always looks messy before the trophy.','Argentina'],['The continent has unfinished business.','Morocco'],['Legacy does not sleep during World Cups.','Portugal']]}
- ]}
-];
-function chooseQuestions(){return QUESTION_POOL.map(slot=>slot.variants[Math.floor(Math.random()*slot.variants.length)]);}
-function App(){const [screen,setScreen]=React.useState('home');const [questions,setQuestions]=React.useState(()=>chooseQuestions());const [i,setI]=React.useState(0);const [answers,setAnswers]=React.useState([]);const [selected,setSelected]=React.useState('');const [result,setResult]=React.useState('');const [modal,setModal]=React.useState(null);const [dual,setDual]=React.useState('');const [appeal,setAppeal]=React.useState(false);const [accepted,setAccepted]=React.useState(false);const [objected,setObjected]=React.useState(false);const [toast,setToast]=React.useState('');
- const showToast=t=>{setToast(t);setTimeout(()=>setToast(''),2600)};
- const start=()=>{setQuestions(chooseQuestions());setI(0);setAnswers([]);setSelected('');setResult('');setDual('');setAppeal(false);setAccepted(false);setObjected(false);setScreen('quiz');window.scrollTo(0,0)};
- const next=()=>{const na=[...answers,selected];setAnswers(na);setSelected('');if(i<questions.length-1){setI(i+1);window.scrollTo(0,0)}else{setScreen('loading');setTimeout(()=>{setResult(calculate(na));setScreen('result');window.scrollTo(0,0)},1150)}};
- const calculate=arr=>{const order=['Brazil','Argentina','France','Morocco','England','Germany','Spain','Portugal'];const scores=Object.fromEntries(order.map(c=>[c,0]));arr.forEach(c=>scores[c]++);return order.sort((a,b)=>scores[b]-scores[a]||order.indexOf(a)-order.indexOf(b))[0];};
- const share=async()=>{const meta=RESULT_META[result];const text=`The Oracle has spoken. I have been claimed by ${result} Embassy ${meta.flag}\nPassport type: ${meta.archetype}${dual?`\nEmotional attachment noted: ${dual}`:''}\n\nTake the World Cup Oracle test and collect your own emergency football passport: ${APP_CONFIG.appUrl}`;try{if(navigator.share){await navigator.share({title:'My World Cup Oracle Passport',text,url:APP_CONFIG.appUrl})}else{await navigator.clipboard.writeText(text);showToast('Passport share text copied. Paste it in WhatsApp, X, Instagram or your group chat.')}}catch(e){showToast('Share cancelled. Screenshot evidence is still allowed.')}};
- const download=()=>{const a=document.createElement('a');a.href=ASSETS.results[result];a.download=`world-cup-oracle-${result.toLowerCase()}-passport.png`;document.body.appendChild(a);a.click();a.remove();showToast('Passport image download started.');};
- const openLink=url=>{if(!url||url==='#')showToast('Placeholder link. Add the real campaign URL in the code.');else window.open(url,'_blank')};
- return <div className="app"><div className="shell">{screen!=='home'&&screen!=='result'&&<><div className="blob b1"></div><div className="blob b2"></div><div className="blob b3"></div></>}{screen==='home'&&<Landing start={start}/>} {screen==='quiz'&&<Quiz q={questions[i]} i={i} selected={selected} setSelected={setSelected} next={next}/>} {screen==='loading'&&<Loading/>} {screen==='result'&&result&&<Result result={result} dual={dual} share={share} download={download} start={start} setModal={setModal} appeal={appeal} setAppeal={setAppeal} accepted={accepted} setAccepted={setAccepted} objected={objected} setObjected={setObjected} openLink={openLink}/>} {modal==='dual'&&<DualModal result={result} setDual={setDual} setModal={setModal}/>} {toast&&<div className="toast">{toast}</div>}</div></div>}
-function Landing({start}){return <div className="landing"><div className="landingWrap"><img className="landingImg" onClick={start} src={ASSETS.landing} alt="The World Cup Oracle landing page. Tap the Assign My Passport button in the image to begin."/><div className="landingHint">Tap the passport button to begin</div></div></div>}
-function Quiz({q,i,selected,setSelected,next}){return <main className="screen"><div className="topLogo"><div className="topLogoText"><span>THE</span><br/>WORLD CUP<br/>ORACLE</div></div><div className="progressLabel">Passport Application {i+1}/8</div><div className="progressTrack"><div className="progressBar" style={{width:`${((i+1)/8)*100}%`}}></div></div><section className="quizCard"><div className="eyebrow">Ministry Question</div><h1 className="question">{q.q}</h1><div className="answers">{q.a.map(([text,country])=><button key={text} className={'answer '+(selected===country?'selected':'')} onClick={()=>setSelected(country)}>{text}</button>)}</div><button className="nextBtn" disabled={!selected} onClick={next}>{i===7?'Submit To Oracle':'Next Question'}</button></section></main>}
-function Loading(){return <main className="screen loading"><div className="spinner"></div><h2>The Oracle is reviewing your file...</h2><p>Checking your football spirit. Consulting VAR spiritually. Ignoring objections.</p></main>}
-function Result({result,dual,share,download,start,setModal,appeal,setAppeal,accepted,setAccepted,objected,setObjected,openLink}){return <main className="screen resultScreen"><div className="resultImageWrap"><img className="resultImg" src={ASSETS.results[result]} alt={`${result} emergency football passport result card`}/></div>{dual&&<div className="dualNote"><b>Dual Citizenship Note:</b><br/>You have emotionally attached yourself to {dual}. The Ministry has noted it, but your official passport remains {result}.</div>}{appeal&&<div className="appealBox"><b>Appeal filed.</b><br/>The Ministry can reopen your case, but suspicious answer changes may be used against you.</div>}{!accepted&&!objected&&<section className="decisionPanel"><h2 className="decisionTitle">Any Objections?</h2><p className="hint">The Ministry has stamped your emergency passport. You may accept the result or object loudly like a proper football fan.</p><button className="btn accept" onClick={()=>setAccepted(true)}>Accept My Passport</button><button className="btn object" onClick={()=>setObjected(true)}>I Object To This Result</button></section>}{objected&&!accepted&&<section className="decisionPanel"><h2 className="decisionTitle">Objection Noted</h2><p className="hint">Your protest has been entered into the official book of unserious complaints. Choose your next move.</p><button className="btn accept" onClick={()=>{setAccepted(true);setObjected(false)}}>Fine. I Accept It</button><div className="secondaryRow"><button className="smallBtn" onClick={()=>setModal('dual')}>Declare Dual Citizenship</button><button className="smallBtn" onClick={()=>setAppeal(true)}>File Appeal</button></div><button className="linkBtn" onClick={start}>Retake Test</button></section>}{accepted&&<section className="ctaPanel"><p className="hint"><b>Passport accepted.</b><br/>Screenshot this passport before sharing. Evidence may be required in the group chat.</p><button className="btn share" onClick={share}>Share My Passport</button><button className="btn download" onClick={download}>Download Passport Image</button><button className="btn whatsapp" onClick={()=>openLink(WHATSAPP_LINKS[result])}>Join My Embassy WhatsApp Group</button><button className="btn challenge" onClick={()=>openLink(APP_CONFIG.tournamentChallengeLink)}>Join Tournament Challenge</button><div className="secondaryRow"><button className="smallBtn" onClick={()=>setModal('dual')}>Add Dual Citizenship</button><button className="smallBtn" onClick={start}>Retake Test</button></div></section>}</main>}
-function DualModal({result,setDual,setModal}){const [choice,setChoice]=React.useState('');return <div className="modal"><div className="modalBox"><h3>Declare Your Emotional Attachment</h3><p>Your Oracle passport remains official. But if your heart already belongs elsewhere, the Ministry will note it for emotional reasons.</p><select className="select" value={choice} onChange={e=>setChoice(e.target.value)}><option value="">Select your side country</option>{WORLD_CUP_TEAMS.map(t=><option key={t.group+t.country} value={`${t.flag} ${t.country}`}>Group {t.group} — {t.flag} {t.country}</option>)}</select><button className="btn share" disabled={!choice} onClick={()=>{setDual(choice);setModal(null)}}>Note My Side Country</button><button className="linkBtn" onClick={()=>setModal(null)}>Cancel</button></div></div>}
-ReactDOM.render(<App/>,document.getElementById('root'));
+
+// ═══════════════════════════════════════════════════════
+// STATE
+// ═══════════════════════════════════════════════════════
+let sessionQuestions = [];   // 6 selected variants
+let sessionRotationMap = []; // which 4 countries shown per question
+let currentQ = 0;
+let scores = {};
+let answers = [];            // {country, slot} per answer
+let tiedCountries = [];
+let tiebreakerVariant = null;
+let objectionChoice = null;
+let ecAnswers = [];
+let ecQuestions = [];
+let ecCurrentQ = 0;
+let ecScores = {};
+let inEmbassyChallenge = false;
+
+// ═══════════════════════════════════════════════════════
+// BALANCED ROTATION MAP
+// Ensures each of 8 countries appears exactly 3 times
+// across 6 questions × 4 options = 24 slots
+// ═══════════════════════════════════════════════════════
+function buildRotationMap() {
+  // Each country must appear exactly 3 times across 6 questions
+  // We build a pool of 24 (8 countries × 3) and distribute 4 per question
+  let pool = [];
+  COUNTRIES.forEach(c => { pool.push(c, c, c); }); // 24 items
+
+  // Shuffle pool
+  for (let i = pool.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [pool[i], pool[j]] = [pool[j], pool[i]];
+  }
+
+  // Distribute into 6 groups of 4, ensuring no duplicates within a group
+  let map = [];
+  let remaining = [...pool];
+
+  for (let q = 0; q < 6; q++) {
+    let group = [];
+    let attempts = 0;
+    while (group.length < 4 && attempts < 1000) {
+      attempts++;
+      // Try to pick from remaining without duplicates in this group
+      let candidates = remaining.filter(c => !group.includes(c));
+      if (candidates.length === 0) break;
+      let pick = candidates[Math.floor(Math.random() * candidates.length)];
+      let idx = remaining.indexOf(pick);
+      remaining.splice(idx, 1);
+      group.push(pick);
+    }
+    // If we couldn't fill 4 without duplicates, fallback: just pick any 4 unique from COUNTRIES
+    if (group.length < 4) {
+      let fallback = [...COUNTRIES];
+      for (let i = fallback.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [fallback[i], fallback[j]] = [fallback[j], fallback[i]];
+      }
+      group = fallback.slice(0, 4);
+    }
+    map.push(group);
+  }
+  return map;
+}
+
+// ═══════════════════════════════════════════════════════
+// QUIZ FLOW
+// ═══════════════════════════════════════════════════════
+function startQuiz() {
+  // Reset state
+  scores = {};
+  COUNTRIES.forEach(c => scores[c] = 0);
+  answers = [];
+  currentQ = 0;
+  tiedCountries = [];
+  objectionChoice = null;
+  ecAnswers = [];
+  ecScores = {};
+  inEmbassyChallenge = false;
+
+  // Pick one variant per slot
+  sessionQuestions = QUESTION_SLOTS.map(slot =>
+    slot[Math.floor(Math.random() * slot.length)]
+  );
+
+  // Build balanced rotation map
+  sessionRotationMap = buildRotationMap();
+
+  showScreen('quiz');
+  renderQuestion();
+}
+
+function renderQuestion() {
+  const q = sessionQuestions[currentQ];
+  const shownCountries = sessionRotationMap[currentQ];
+
+  document.getElementById('quiz-counter').textContent = `${currentQ + 1} / 6`;
+  document.getElementById('progress-bar').style.width = `${(currentQ / 6) * 100}%`;
+  document.getElementById('q-slot-label').textContent = `Case File 0${currentQ + 1}`;
+  document.getElementById('q-text').textContent = q.text;
+
+  const optionsEl = document.getElementById('q-options');
+  optionsEl.innerHTML = '';
+
+  // Filter options to only show the 4 countries in shownCountries
+  const filteredOptions = q.options.filter(o => shownCountries.includes(o.country));
+
+  filteredOptions.forEach(opt => {
+    const btn = document.createElement('button');
+    btn.className = 'option-btn';
+    btn.textContent = opt.text;
+    btn.onclick = () => selectAnswer(opt.country, btn);
+    optionsEl.appendChild(btn);
+  });
+}
+
+function selectAnswer(country, btn) {
+  // Visual feedback
+  document.querySelectorAll('.option-btn').forEach(b => b.classList.remove('selected'));
+  btn.classList.add('selected');
+
+  // Score: Q1 (slot 0) = +2, others = +1
+  const points = currentQ === 0 ? 2 : 1;
+  scores[country] += points;
+  answers.push({country, slot: currentQ});
+
+  setTimeout(() => {
+    currentQ++;
+    if (currentQ < 6) {
+      renderQuestion();
+    } else {
+      resolveResult();
+    }
+  }, 350);
+}
+
+// ═══════════════════════════════════════════════════════
+// RESULT RESOLUTION
+// ═══════════════════════════════════════════════════════
+function resolveResult() {
+  showScreen('calculating');
+
+  setTimeout(() => {
+    const maxScore = Math.max(...Object.values(scores));
+    const topCountries = COUNTRIES.filter(c => scores[c] === maxScore);
+
+    if (topCountries.length === 1) {
+      showResult(topCountries[0]);
+    } else {
+      // Tie — show tiebreaker
+      tiedCountries = topCountries;
+      showTiebreaker();
+    }
+  }, 2200);
+}
+
+function showTiebreaker() {
+  tiebreakerVariant = TIEBREAKER_VARIANTS[Math.floor(Math.random() * TIEBREAKER_VARIANTS.length)];
+
+  document.getElementById('tb-text').textContent = tiebreakerVariant.text;
+  const tbOptions = document.getElementById('tb-options');
+  tbOptions.innerHTML = '';
+
+  // Show only options for tied countries (max 4, or all tied if ≤4)
+  let displayCountries = tiedCountries.slice(0, 4);
+  // If fewer than 4 tied, pad with random non-tied countries
+  if (displayCountries.length < 4) {
+    const others = COUNTRIES.filter(c => !tiedCountries.includes(c));
+    const shuffled = others.sort(() => Math.random() - 0.5);
+    displayCountries = [...displayCountries, ...shuffled].slice(0, 4);
+  }
+
+  const filteredOpts = tiebreakerVariant.options.filter(o => displayCountries.includes(o.country));
+
+  filteredOpts.forEach(opt => {
+    const btn = document.createElement('button');
+    btn.className = 'option-btn';
+    btn.textContent = opt.text;
+    btn.onclick = () => resolveTiebreaker(opt.country, btn);
+    tbOptions.appendChild(btn);
+  });
+
+  showScreen('tiebreaker');
+}
+
+function resolveTiebreaker(country, btn) {
+  btn.classList.add('selected');
+
+  setTimeout(() => {
+    // If the chosen country is in the tied set, use it
+    if (tiedCountries.includes(country)) {
+      showResult(country);
+    } else {
+      // Still tied — use localStorage guardrail
+      const lastResult = localStorage.getItem('sf_oracle_last_result');
+      const remaining = tiedCountries.filter(c => c !== lastResult);
+      const winner = remaining.length > 0
+        ? remaining[Math.floor(Math.random() * remaining.length)]
+        : tiedCountries[Math.floor(Math.random() * tiedCountries.length)];
+      showResult(winner);
+    }
+  }, 350);
+}
+
+function showResult(country) {
+  localStorage.setItem('sf_oracle_last_result', country);
+
+  const r = RESULTS[country];
+  document.getElementById('res-flag').textContent = r.flag;
+  document.getElementById('res-country').textContent = r.country;
+  document.getElementById('res-archetype').textContent = r.archetype;
+  document.getElementById('res-short').textContent = r.short;
+  document.getElementById('res-long').textContent = r.long;
+  document.getElementById('res-prophecy').textContent = r.prophecy;
+  document.getElementById('res-rival').textContent = r.rival;
+
+  const tagsEl = document.getElementById('res-tags');
+  tagsEl.innerHTML = '';
+  r.tags.forEach(tag => {
+    const span = document.createElement('span');
+    span.className = 'passport-tag';
+    span.textContent = tag;
+    tagsEl.appendChild(span);
+  });
+
+  document.getElementById('res-objection-status').textContent = 'PENDING DECLARATION';
+
+  // Reset objection UI
+  document.querySelectorAll('.objection-btn').forEach(b => b.classList.remove('selected'));
+  document.getElementById('objection-response').classList.add('hidden');
+  document.getElementById('dual-select').classList.add('hidden');
+  document.getElementById('ec-result-section').classList.add('hidden');
+  document.getElementById('embassy-challenge-section').classList.remove('hidden');
+
+  showScreen('result');
+}
+
+// ═══════════════════════════════════════════════════════
+// OBJECTIONS
+// ═══════════════════════════════════════════════════════
+function handleObjection(type) {
+  objectionChoice = type;
+  document.querySelectorAll('.objection-btn').forEach(b => b.classList.remove('selected'));
+  event.target.classList.add('selected');
+
+  const responseEl = document.getElementById('objection-response');
+  const dualEl = document.getElementById('dual-select');
+  const statusEl = document.getElementById('res-objection-status');
+
+  responseEl.classList.remove('hidden');
+  dualEl.classList.add('hidden');
+
+  if (type === 'accept') {
+    responseEl.textContent = "Passport stamped. Your country is now your problem.";
+    statusEl.textContent = "ACCEPTED";
+  } else if (type === 'dual') {
+    responseEl.textContent = "Dual citizenship noted. Your Oracle Passport remains your official embassy. Your declared favourite is emotional context only.";
+    dualEl.classList.remove('hidden');
+    statusEl.textContent = "DUAL CITIZEN";
+  } else if (type === 'reject') {
+    responseEl.textContent = "Your protest has been recorded. Your passport remains valid. The Ministry does not negotiate.";
+    statusEl.textContent = "UNDER PROTEST";
+  } else if (type === 'chaos') {
+    responseEl.textContent = "You have been assigned to the Ministry of Chaos. No embassy. No loyalty. Only banter.";
+    statusEl.textContent = "MINISTRY OF CHAOS";
+  }
+}
+
+function updateDualCitizenship() {
+  const selected = document.getElementById('dual-country-select').value;
+  if (selected) {
+    document.getElementById('objection-response').textContent =
+      `Dual citizenship noted. Oracle Passport: ${RESULTS[document.getElementById('res-country').textContent]?.country || document.getElementById('res-country').textContent}. Declared favourite: ${selected}. Your heart may argue. Your football soul has been documented.`;
+  }
+}
+
+// ═══════════════════════════════════════════════════════
+// EMBASSY CHALLENGE (Wildcard)
+// ═══════════════════════════════════════════════════════
+function startEmbassyChallenge() {
+  inEmbassyChallenge = true;
+  ecAnswers = [];
+  ecScores = {};
+  COUNTRIES.forEach(c => ecScores[c] = 0);
+  ecCurrentQ = 0;
+
+  // Pick 2 wildcard questions + 1 random tiebreaker variant as 3rd
+  const shuffledWC = [...WILDCARD_QUESTIONS].sort(() => Math.random() - 0.5);
+  const tbAsQ = TIEBREAKER_VARIANTS[Math.floor(Math.random() * TIEBREAKER_VARIANTS.length)];
+  ecQuestions = [shuffledWC[0], shuffledWC[1] || shuffledWC[0], tbAsQ];
+
+  document.getElementById('embassy-challenge-section').classList.add('hidden');
+  showScreen('quiz');
+  renderECQuestion();
+}
+
+function renderECQuestion() {
+  const q = ecQuestions[ecCurrentQ];
+  document.getElementById('quiz-counter').textContent = `EC ${ecCurrentQ + 1} / 3`;
+  document.getElementById('progress-bar').style.width = `${(ecCurrentQ / 3) * 100}%`;
+  document.getElementById('q-slot-label').textContent = `Embassy Challenge — Round ${ecCurrentQ + 1}`;
+  document.getElementById('q-text').textContent = q.text;
+
+  const optionsEl = document.getElementById('q-options');
+  optionsEl.innerHTML = '';
+
+  // Show all 8 options for Embassy Challenge (or 4 random)
+  const shuffled = [...q.options].sort(() => Math.random() - 0.5).slice(0, 4);
+  shuffled.forEach(opt => {
+    const btn = document.createElement('button');
+    btn.className = 'option-btn';
+    btn.textContent = opt.text;
+    btn.onclick = () => selectECAnswer(opt.country, btn);
+    optionsEl.appendChild(btn);
+  });
+}
+
+function selectECAnswer(country, btn) {
+  document.querySelectorAll('.option-btn').forEach(b => b.classList.remove('selected'));
+  btn.classList.add('selected');
+  ecScores[country] = (ecScores[country] || 0) + 1;
+  ecAnswers.push(country);
+
+  setTimeout(() => {
+    ecCurrentQ++;
+    if (ecCurrentQ < 3) {
+      renderECQuestion();
+    } else {
+      resolveEmbassyChallenge();
+    }
+  }, 350);
+}
+
+function resolveEmbassyChallenge() {
+  showScreen('calculating');
+  setTimeout(() => {
+    const maxEC = Math.max(...Object.values(ecScores));
+    const ecTopCountries = COUNTRIES.filter(c => ecScores[c] === maxEC);
+    const ecWinner = ecTopCountries[Math.floor(Math.random() * ecTopCountries.length)];
+    const oracleCountry = document.getElementById('res-country').textContent;
+
+    showScreen('result');
+    inEmbassyChallenge = false;
+
+    const ecResultSection = document.getElementById('ec-result-section');
+    const ecResultTitle = document.getElementById('ec-result-title');
+    const ecResultText = document.getElementById('ec-result-text');
+
+    ecResultSection.classList.remove('hidden');
+
+    if (ecWinner === oracleCountry) {
+      ecResultSection.className = 'ec-result-section ec-result-match';
+      ecResultTitle.textContent = `${FLAGS[ecWinner]} The Oracle has been vindicated.`;
+      ecResultText.textContent = `The Embassy Challenge confirms: ${ecWinner}. Your country was never in doubt. The Ministry has reviewed the evidence and found it consistent. Your passport stands.`;
+    } else {
+      ecResultSection.className = 'ec-result-section ec-result-diff';
+      ecResultTitle.textContent = `${FLAGS[ecWinner]} Interesting. A discrepancy has been noted.`;
+      ecResultText.textContent = `The Embassy Challenge points to ${ecWinner}. The Oracle issued ${oracleCountry}. The Ministry notes this conflict and hereby grants you Dual Citizenship. Your Oracle Passport remains official. Your heart has been documented separately.`;
+      // Auto-trigger dual citizenship
+      document.getElementById('res-objection-status').textContent = 'DUAL CITIZEN';
+    }
+
+    document.getElementById('embassy-challenge-section').classList.add('hidden');
+  }, 1800);
+}
+
+// ═══════════════════════════════════════════════════════
+// CTAs
+// ═══════════════════════════════════════════════════════
+function joinEmbassy() {
+  window.open(WHATSAPP_LINK, '_blank');
+}
+
+function sharePassport() {
+  const country = document.getElementById('res-country').textContent;
+  const archetype = document.getElementById('res-archetype').textContent;
+  const shareText = `🏆 The Savvy Football World Cup Oracle has spoken.\n\nMy emergency passport has been issued to: ${FLAGS[country] || ''} ${country}\nArchetype: ${archetype}\n\nNigeria didn't qualify. So I found my football soul.\n\nFind yours 👇`;
+
+  if (navigator.share) {
+    navigator.share({
+      title: 'My World Cup Oracle Passport',
+      text: shareText,
+      url: window.location.href
+    }).catch(() => copyToClipboard(shareText));
+  } else {
+    copyToClipboard(shareText + '\n' + window.location.href);
+  }
+}
+
+function copyToClipboard(text) {
+  navigator.clipboard.writeText(text).then(() => {
+    alert('Passport copied to clipboard! Paste it anywhere to share.');
+  }).catch(() => {
+    alert('Share your passport: ' + text);
+  });
+}
+
+function restartQuiz() {
+  showScreen('landing');
+}
+
+// ═══════════════════════════════════════════════════════
+// SCREEN MANAGEMENT
+// ═══════════════════════════════════════════════════════
+function showScreen(name) {
+  ['landing','quiz','tiebreaker','calculating','result'].forEach(s => {
+    document.getElementById('screen-' + s).classList.add('hidden');
+  });
+  document.getElementById('screen-' + name).classList.remove('hidden');
+  window.scrollTo(0, 0);
+}
 </script>
 </body>
 </html>
